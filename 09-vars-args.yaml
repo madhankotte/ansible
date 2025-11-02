@@ -1,9 +1,7 @@
-- name: variables from files
-  hosts: local
-  connection: local
-  
+- name: variables from args
+  hosts: all
+  connection: ssh
   tasks:
     - name: print course info
       ansible.builtin.debug:
-        msg: "Course name is: {{ course }}, Duration: {{ DURATIONS }}, Trainer: {{ Trainer }}"
-
+        msg: "Course: {{ course }}, Duration: {{ duration }}, Trainer: {{ trainer }}"

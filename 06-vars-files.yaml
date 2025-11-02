@@ -3,7 +3,9 @@
   connection: local
   vars_files:
     - course.yaml
+
   tasks:
     - name: print course info
       ansible.builtin.debug:
-        msg: "Course name is: {{ course }}, Duration: {{ duration }}, Trainer: {{ trainer }}"
+        msg: "Course name is: {{ course }}, Duration: {{ DURATIONS }}, Trainer: {{ Trainer }}"
+

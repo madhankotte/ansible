@@ -12,7 +12,11 @@
 
   tasks:
     - name: testing variables preference
-      vars:
-        name: from task level
+      # vars:
+      #   name: from task level
       ansible.builtin.debug:
         msg: "name: {{ name }}"
+
+
+# 1. args or commend line
+# 2. from prompt

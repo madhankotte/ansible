@@ -1,10 +1,13 @@
 - name: vars preference
   hosts: local
   connection: local
-  evelvars:
-  #   name: from play lavel
-  # vars_files:
-  #   - course.yaml
+
+  vars:
+    name: from play level
+
+  vars_files:
+    - course.yaml
+
   vars_prompt:
     - name: name
       prompt: What is the username?
@@ -12,8 +15,8 @@
 
   tasks:
     - name: testing variables preference
-      # vars:
-      #   name: from task level
+      vars:
+        name: from task level
       ansible.builtin.debug:
         msg: "name: {{ name }}"
 

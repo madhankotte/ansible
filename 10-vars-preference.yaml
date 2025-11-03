@@ -2,13 +2,13 @@
   hosts: local
   connection: local
   evelvars:
-    name: from play lavel
-  vars_files:
-    - course.yaml
-  # vars_prompt:
-  #   - name: name
-  #     prompt: What is the username?
-  #     private: false
+  #   name: from play lavel
+  # vars_files:
+  #   - course.yaml
+  vars_prompt:
+    - name: name
+      prompt: What is the username?
+      private: false
 
   tasks:
     - name: testing variables preference

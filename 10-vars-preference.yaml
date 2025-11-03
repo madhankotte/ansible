@@ -2,17 +2,17 @@
   hosts: local
   connection: local
   vars:
-    name: from play lavel
+    name: from play level
   vars_files:
-  - course.yaml
+    - course.yaml
   vars_prompt:
-    - name: username
+    - name: name
       prompt: What is the username?
       private: false
 
   tasks:
     - name: testing variables preference
       vars:
-        name: from task lavel
+        name: from task level
       ansible.builtin.debug:
-        msg: "name: {{ Name }}"
+        msg: "name: {{ name }}"

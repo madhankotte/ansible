@@ -1,14 +1,14 @@
 - name: vars preference
   hosts: local
   connection: local
-  vars:
-    name: from play level
+  evelvars:
+    name: from play lavel
   vars_files:
     - course.yaml
-  vars_prompt:
-    - name: name
-      prompt: What is the username?
-      private: false
+  # vars_prompt:
+  #   - name: name
+  #     prompt: What is the username?
+  #     private: false
 
   tasks:
     - name: testing variables preference
@@ -20,3 +20,4 @@
 
 # 1. args or commend line
 # 2. from prompt
+# 3. from play lavel

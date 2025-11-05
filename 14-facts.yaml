@@ -1,8 +1,16 @@
-- name: check the facts
+- name: Check the facts and install nginx if RedHat
   hosts: local
   connection: local
+  become: yes
+
   tasks:
-  - name: install nginx if radhat
-    ansible.builtin.debug:
-      name: nginx
-      state: latest
+    - name: Install nginx if RedHat
+      ansible.builtin.yum:
+        name: nginx
+        state: latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Print message if not RedHat
+      ansible.builtin.debug:
+        msg: "This is not a RedHat-based system, skipping nginx installation."
+      when: ansible_os_family != "RedHat"

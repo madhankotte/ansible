@@ -1,0 +1,8 @@
+- name: check the facts
+  hosts: local
+  connection: local
+  tasks:
+  - name: install nginx if radhat
+    ansible.builtin.debug:
+      name: nginx
+      state: latest

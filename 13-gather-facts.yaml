@@ -1,9 +1,13 @@
-- name: gather facts
+- name: Gather facts and compare number
   hosts: local
   connection: local
-  # ansible collects the info of the target server, before it executes any other fact
+  gather_facts: yes
+
+  vars:
+    number: 5  # or pass with --extra-vars "number=5"
+
   tasks:
-    - name: facts
+    - name: Display message if number is less than 10
       ansible.builtin.debug:
         msg: "Given number {{ number }} is less than 10"
-      when:  "{{ ansible_facts }}"
+      when: number < 10

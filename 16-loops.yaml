@@ -2,13 +2,14 @@
   hosts: local
   connection: local
   become: yes
+  gather_facts: no
+
   tasks:
-    - name: print names
+    - name: install packages
       ansible.builtin.package:
-      - name: "{{ item }}"
+        name: "{{ item }}"
         state: latest
       loop:
         - nginx
         - mysql
         - zip
-        

@@ -1,0 +1,20 @@
+- name: student info playbook
+  hosts: localhost
+  connection: local
+  vars:
+    students:
+      - name: John Doe
+        age: 20
+        course: Computer Science
+      - name: Priya Sharma
+        age: 21
+        course: Information Technology
+      - name: Ahmed Khan
+        age: 22
+        course: DevOps
+
+  tasks:
+    - name: Print each student's details
+      ansible.builtin.debug:
+        msg: "Student: {{ item.name }}, Age: {{ item.age }}, Course: {{ item.course }}"
+      loop: "{{ students }}"

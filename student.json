@@ -1,0 +1,19 @@
+{
+  "students": [
+    {
+      "name": "John",
+      "course": "Python",
+      "grade": "A"
+    },
+    {
+      "name": "Alice",
+      "course": "Ansible",
+      "grade": "B"
+    },
+    {
+      "name": "Ravi",
+      "course": "Linux",
+      "grade": "A+"
+    }
+  ]
+}

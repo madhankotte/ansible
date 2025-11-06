@@ -1,8 +1,8 @@
 - name: functions
-  hosts: local
+  hosts: localhost
   connection: local
   vars:
-    technologies: "Devops, Linux, shell, ansible"  # string
+    technologies: "Devops, Linux, shell, ansible"
     tags:
       application: payment
       environment: dev
@@ -11,6 +11,7 @@
         value: payment
       - key: environment
         value: dev
+
   tasks:
     - name: default variable
       ansible.builtin.debug:
@@ -28,10 +29,12 @@
       ansible.builtin.debug:
         msg: "Tags are: {{ listtags | items2dict }}"
 
+    # ✅ Correct way to read a YAML file
     - name: read yaml and take it into variable
-      ansible.builtin.debug:
-        student.yaml: "{{ lookup('file', 'student.yaml') | from_yaml }}"
+      ansible.builtin.include_vars:
+        file: student.yaml
+        name: students_data
 
-    - name: convert yaml into json
+    - name: print student yaml data
       ansible.builtin.debug:
-        msg: "json: {{ student.yaml | }}"
+        var: students_data

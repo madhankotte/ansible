@@ -6,7 +6,7 @@
     technologies: "Devops, Linux, shell, ansible"
     name: madhan
     gmail: madhan@gmail.com
-    ipaddress: 345.4237.43526.4236  # Example IP; will be validated
+    ipaddress: 192.168.0.1  # Example IP; will be validated
 
     tags:
       application: payment

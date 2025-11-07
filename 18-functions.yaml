@@ -30,7 +30,7 @@
       ansible.builtin.debug:
         msg: "Tags are: {{ listtags | items2dict }}"
 
-    # ✅ Read YAML file and load as dictionary
+    # ✅ Read YAML file into variable
     - name: read yaml and take it into variable
       ansible.builtin.include_vars:
         file: student.yaml
@@ -45,15 +45,7 @@
         msg: "{{ item.name }}"
       loop: "{{ students_data.students }}"
 
+    # ✅ Convert YAML into JSON
     - name: convert yaml into json
       ansible.builtin.debug:
-        msg: "json: {{ student_yaml | to_json }}"
-      
-    - name: save json to file
-      ansible.builtin.debug:
-        dest: ./student_data.json
-      loop: "{{ student_yaml | to_nice_json }}"
-
-
-
-      
+        msg: "{{ students_data | to_json }}"

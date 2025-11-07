@@ -4,6 +4,10 @@
 
   vars:
     technologies: "Devops, Linux, shell, ansible"
+    name: madhan
+    gmail: madhan@gmail.com
+    ipaddress: 345.4237.43526.4236  # Example IP; will be validated
+
     tags:
       application: payment
       environment: dev
@@ -14,61 +18,88 @@
         value: dev
 
   tasks:
-    # ✅ Default variable with fallback
-    - name: default variable
+    # Default variable with fallback
+    - name: greet user
       ansible.builtin.debug:
         msg: "Hello, {{ name | default('madhan') }}"
 
-    # ✅ Convert string to list
+    # Print Gmail
+    - name: print gmail
+      ansible.builtin.debug:
+        msg: "Gmail: {{ gmail }}"
+
+    # Validate IP address
+    - name: check if IP address is valid
+      ansible.builtin.debug:
+        msg: >
+          {% if ipaddress is ipaddr() %}
+            IP address {{ ipaddress }} is valid
+          {% else %}
+            IP address {{ ipaddress }} is NOT valid
+          {% endif %}
+
+    # Optional: run tasks only if IP is valid
+    - name: proceed only if IP is valid
+      ansible.builtin.debug:
+        msg: "Running tasks because IP is valid"
+      when: ipaddress is ipaddr()
+
+    # Convert string to list
     - name: convert string to list
       ansible.builtin.debug:
         msg: "Technologies are: {{ technologies | split(', ') }}"
 
-    # ✅ Convert map to list
+    # Convert map to list
     - name: convert map to list
       ansible.builtin.debug:
         msg: "Tags are: {{ tags | dict2items }}"
 
-    # ✅ Convert list to map
+    # Convert list to map
     - name: convert list to map
       ansible.builtin.debug:
         msg: "Tags are: {{ listtags | items2dict }}"
 
-    # ✅ Read YAML file into variable
+    # Read YAML file into variable
     - name: read yaml and take it into variable
       ansible.builtin.include_vars:
         file: student.yaml
         name: students_data
 
-    # ✅ Print full student YAML data
+    # Print full student YAML data
     - name: print student yaml data
       ansible.builtin.debug:
         var: students_data
 
-    # ✅ Print only student names
+    # Print only student names
     - name: print only student names
       ansible.builtin.debug:
         msg: "{{ item.name }}"
       loop: "{{ students_data.students }}"
 
-    # ✅ Convert YAML to JSON and print
+    # Print student Gmail addresses
+    - name: print student emails
+      ansible.builtin.debug:
+        msg: "{{ item.name }}'s Gmail: {{ item.gmail }}"
+      loop: "{{ students_data.students }}"
+
+    # Convert YAML to JSON and print
     - name: convert yaml into json
       ansible.builtin.debug:
         msg: "{{ students_data | to_json }}"
 
-    # ✅ Save JSON to file
+    # Save JSON to file
     - name: save json to file
       ansible.builtin.copy:
         dest: ./student-data.json
         content: "{{ students_data | to_nice_json }}"
 
-    # ✅ Convert each student name to uppercase
+    # Convert each student name to uppercase
     - name: convert student names to uppercase
       ansible.builtin.debug:
         msg: "{{ item.name | upper }}"
       loop: "{{ students_data.students }}"
 
-    # ✅ Optional: save uppercase names to a file
+    # Save uppercase names to a file
     - name: save uppercase student names to file
       ansible.builtin.copy:
         dest: ./students-uppercase.txt

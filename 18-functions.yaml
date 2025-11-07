@@ -28,21 +28,21 @@
       ansible.builtin.debug:
         msg: "Gmail: {{ gmail }}"
 
-    # Validate IP address
+    # Validate IP address (simple regex)
     - name: check if IP address is valid
       ansible.builtin.debug:
         msg: >
-          {% if ipaddress is ipaddr() %}
-            IP address {{ ipaddress }} is valid
+          {% if ipaddress is match('^([0-9]{1,3}\.){3}[0-9]{1,3}$') %}
+            IP address {{ ipaddress }} looks like a valid IPv4
           {% else %}
             IP address {{ ipaddress }} is NOT valid
           {% endif %}
 
-    # Optional: run tasks only if IP is valid
+    # Optional: proceed only if IP is valid
     - name: proceed only if IP is valid
       ansible.builtin.debug:
         msg: "Running tasks because IP is valid"
-      when: ipaddress is ipaddr()
+      when: ipaddress is match('^([0-9]{1,3}\.){3}[0-9]{1,3}$')
 
     # Convert string to list
     - name: convert string to list
@@ -74,12 +74,6 @@
     - name: print only student names
       ansible.builtin.debug:
         msg: "{{ item.name }}"
-      loop: "{{ students_data.students }}"
-
-    # Print student Gmail addresses
-    - name: print student emails
-      ansible.builtin.debug:
-        msg: "{{ item.name }}'s Gmail: {{ item.gmail }}"
       loop: "{{ students_data.students }}"
 
     # Convert YAML to JSON and print

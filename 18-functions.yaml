@@ -1,6 +1,7 @@
 - name: functions
   hosts: localhost
   connection: local
+
   vars:
     technologies: "Devops, Linux, shell, ansible"
     tags:
@@ -29,7 +30,7 @@
       ansible.builtin.debug:
         msg: "Tags are: {{ listtags | items2dict }}"
 
-    # ✅ Correct way to read a YAML file
+    # ✅ Read YAML file and load as dictionary
     - name: read yaml and take it into variable
       ansible.builtin.include_vars:
         file: student.yaml
@@ -38,3 +39,8 @@
     - name: print student yaml data
       ansible.builtin.debug:
         var: students_data
+
+    - name: print only student names
+      ansible.builtin.debug:
+        msg: "{{ item.name }}"
+      loop: "{{ students_data.students }}"

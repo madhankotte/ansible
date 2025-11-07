@@ -14,18 +14,22 @@
         value: dev
 
   tasks:
+    # ✅ Default variable with fallback
     - name: default variable
       ansible.builtin.debug:
         msg: "Hello, {{ name | default('madhan') }}"
 
+    # ✅ Convert string to list
     - name: convert string to list
       ansible.builtin.debug:
         msg: "Technologies are: {{ technologies | split(', ') }}"
 
+    # ✅ Convert map to list
     - name: convert map to list
       ansible.builtin.debug:
         msg: "Tags are: {{ tags | dict2items }}"
 
+    # ✅ Convert list to map
     - name: convert list to map
       ansible.builtin.debug:
         msg: "Tags are: {{ listtags | items2dict }}"
@@ -36,27 +40,39 @@
         file: student.yaml
         name: students_data
 
+    # ✅ Print full student YAML data
     - name: print student yaml data
       ansible.builtin.debug:
         var: students_data
 
+    # ✅ Print only student names
     - name: print only student names
       ansible.builtin.debug:
         msg: "{{ item.name }}"
       loop: "{{ students_data.students }}"
 
-    # ✅ Convert YAML into JSON
+    # ✅ Convert YAML to JSON and print
     - name: convert yaml into json
       ansible.builtin.debug:
         msg: "{{ students_data | to_json }}"
 
+    # ✅ Save JSON to file
     - name: save json to file
       ansible.builtin.copy:
-        dest: ./student-data.json   # fixed typo 'stundent'
-        content: "{{ students_data | to_nice_json }}"  # use 'content' and to_nice_json
+        dest: ./student-data.json
+        content: "{{ students_data | to_nice_json }}"
 
-    - name: convert uppercase
+    # ✅ Convert each student name to uppercase
+    - name: convert student names to uppercase
       ansible.builtin.debug:
-        msg: "{{ name | upper }}"
+        msg: "{{ item.name | upper }}"
+      loop: "{{ students_data.students }}"
 
-       
+    # ✅ Optional: save uppercase names to a file
+    - name: save uppercase student names to file
+      ansible.builtin.copy:
+        dest: ./students-uppercase.txt
+        content: |
+          {% for student in students_data.students %}
+          {{ student.name | upper }}
+          {% endfor %}

@@ -49,4 +49,14 @@
     - name: convert yaml into json
       ansible.builtin.debug:
         msg: "{{ students_data | to_json }}"
-  
+
+    - name: save json to file
+      ansible.builtin.copy:
+       dest: ./stundent-data.json
+       convert: "{{ students_data | to_json }}"
+
+    - name: convert uppercase
+      ansible.builtin.debug:
+        msg: "{{ name | upper }}"
+
+       

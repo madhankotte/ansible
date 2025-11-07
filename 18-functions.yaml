@@ -52,8 +52,8 @@
 
     - name: save json to file
       ansible.builtin.copy:
-       dest: ./stundent-data.json
-       convert: "{{ students_data | to_json }}"
+        dest: ./student-data.json   # fixed typo 'stundent'
+        content: "{{ students_data | to_nice_json }}"  # use 'content' and to_nice_json
 
     - name: convert uppercase
       ansible.builtin.debug:

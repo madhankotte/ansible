@@ -103,7 +103,7 @@
           {% endfor %}
 
     - name: grep for root
-      ansible.builtin.shell: cat /ect/passwd | grep root
+      ansible.builtin.shell: grep root /etc/passwd
       register: command_output
 
 

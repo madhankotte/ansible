@@ -117,4 +117,4 @@
 
     - name: print redirect_output
       ansible.builtin.debug:
-      msg: "{{ redirect_output }}"
+         msg: "{{ redirect_output.stdout }}"
